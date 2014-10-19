@@ -21,7 +21,12 @@
   
     var fp = new FourierPolynomial([1, 1, 1])
     var osc = new Oscilloscope(fp)
+
     osc.render('div#oscilloscope')
+      setInterval(function() {
+        osc.cycle()
+        osc.render()
+    }, 100)
 
   </script>
 </html>

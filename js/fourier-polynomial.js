@@ -9,15 +9,15 @@ var FourierPolynomial = function(cs) {
   return {
   
     get degree() {
-      return _cs.length
+      return _cs.length - 1
     },
 
     // The maximum possible value obtained by the polynomial
     get pmax() {
       var s, i
       s = 0
-      for(i = 0; i < _ys.length; i++) {
-        s += Math.abs(_ys[i])
+      for(i = 0; i < _cs.length; i++) {
+        s += Math.abs(_cs[i])
       }
       return s
     },
@@ -28,7 +28,7 @@ var FourierPolynomial = function(cs) {
       phase = phase || 0
       var acc, i
       acc = 0
-      for(i = 0; i < this.degree; i++) {
+      for(i = 0; i <= this.degree; i++) {
         acc += _cs[i] * Math.sin(2 * i * Math.PI * (x - phase))
       }
       return acc
@@ -38,8 +38,9 @@ var FourierPolynomial = function(cs) {
     // pahse.
     eval: function(xs, phase) {
       that = this
-      xs.map(function(x) {return that._eval(x, phase)})
+      var ys = xs.map(function(x) {return that._eval(x, phase)})
       that = null // Destruct
+      return ys
     },
 
     // Transform a fourier series by passing it through a transformation
